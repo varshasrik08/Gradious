@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Commerce Landing Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+    header {
+      background: #2874f0;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 { margin: 0; font-size: 24px; }
+    nav a {
+      color: white; text-decoration: none;
+      margin-left: 20px; font-weight: bold;
+    }
+    .banner {
+      background: url('https://source.unsplash.com/1600x500/?shopping') no-repeat center/cover;
+      height: 300px; display: flex;
+      align-items: center; justify-content: center;
+      color: white; font-size: 36px; font-weight: bold;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+    .products {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px; padding: 30px;
+    }
+    .product-card {
+      background: white; border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center; transition: transform 0.2s;
+    }
+    .product-card:hover { transform: translateY(-5px); }
+    .product-card img {
+      width: 100%; height: 200px; object-fit: cover;
+      border-top-left-radius: 10px; border-top-right-radius: 10px;
+    }
+    .product-card h3 { margin: 15px 0 10px; font-size: 18px; }
+    .product-card p { color: #555; font-size: 14px; margin: 0 10px 15px; }
+    .btn {
+      display: inline-block; padding: 10px 20px;
+      margin-bottom: 15px; background: #2874f0;
+      color: white; border-radius: 5px;
+      text-decoration: none; font-size: 14px; cursor: pointer;
+    }
+    .btn:hover { background: #1a4fb3; }
+    #cart {
+      background: #fff; padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin: 20px auto; width: 90%; max-width: 600px;
+      border-radius: 10px;
+    }
+    #cart h2 { margin-top: 0; }
+    #cart ul { list-style: none; padding: 0; }
+    #cart li {
+      padding: 8px; border-bottom: 1px solid #ddd;
+      display: flex; justify-content: space-between;
+    }
+    footer {
+      background: #333; color: white;
+      text-align: center; padding: 15px; margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MyShop</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Products</a>
+      <a href="#">Cart (<span id="cart-count">0</span>)</a>
+      <a href="#">Login</a>
+    </nav>
+  </header>
+
+  <div class="banner">Big Sale – Up to 50% Off!</div>
+
+  <section class="products">
+    <div class="product-card">
+      <img src="https://source.unsplash.com/300x200/?laptop" alt="Laptop">
+      <h3>Laptop</h3>
+      <p>High performance laptop for work and gaming.</p>
+      <button class="btn add-to-cart" data-name="Laptop" data-price="60000">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="https://source.unsplash.com/300x200/?headphones" alt="Headphones">
+      <h3>Headphones</h3>
+      <p>Noise-cancelling headphones with deep bass.</p>
+      <button class="btn add-to-cart" data-name="Headphones" data-price="2000">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="https://source.unsplash.com/300x200/?smartphone" alt="Smartphone">
+      <h3>Smartphone</h3>
+      <p>Latest smartphone with powerful camera and features.</p>
+      <button class="btn add-to-cart" data-name="Smartphone" data-price="30000">Add to Cart</button>
+    </div>
+  </section>
+
+  <!-- Cart section -->
+  <section id="cart">
+    <h2>Your Cart</h2>
+    <ul id="cart-items"></ul>
+    <p><strong>Total: ₹<span id="cart-total">0</span></strong></p>
+  </section>
+
+  <footer>© 2025 MyShop. All Rights Reserved.</footer>
+
+  <script>
+    const cart = [];
+    const cartItemsEl = document.getElementById('cart-items');
+    const cartTotalEl = document.getElementById('cart-total');
+    const cartCountEl = document.getElementById('cart-count');
+
+    function updateCart() {
+      // Clear list
+      cartItemsEl.innerHTML = '';
+      let total = 0;
+
+      cart.forEach(item => {
+        total += item.price * item.qty;
+        const li = document.createElement('li');
+        li.innerHTML = `${item.name} (x${item.qty}) <span>₹${item.price * item.qty}</span>`;
+        cartItemsEl.appendChild(li);
+      });
+
+      cartTotalEl.textContent = total;
+      cartCountEl.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+    }
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', () => {
+        const name = button.getAttribute('data-name');
+        const price = parseInt(button.getAttribute('data-price'));
+
+        // Check if already in cart
+        const existing = cart.find(item => item.name === name);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          cart.push({ name, price, qty: 1 });
+        }
+
+        updateCart();
+        alert(`${name} added to cart!`);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Payment - MyShop</title>
+  <link rel="stylesheet" href="8th.css">
+</head>
+<body>
+<header>
+   <h1>MyShop</h1>
+    <nav>
+      <a href="1st.html">Home</a>
+      <a href="2nd.html">Products</a>
+      <a href="3rd.html">Cart(<span id="cart-count">0</span>)</a>
+      <a href="4th.html">Login</a>
+
+    </nav>
+  </header>
+
+  <div class="card-wrapper">
+  <main class="card-container">
+    <h2>Enter Card Details</h2>
+
+    <form id="card-form">
+      <input type="text" id="card-number" placeholder="Card Number" maxlength="16" required>
+      <input type="text" id="card-name" placeholder="Card Holder Name" required>
+
+      <div class="row">
+        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" required style="width: 50%">
+        <input type="password" id="cvv" placeholder="CVV" maxlength="3" required>
+      </div>
+      <button type="submit">Pay Now</button>
+    </form>
+  </main>
+  </div>
+  <footer>
+    © 2025 MyShop. All Rights Reserved.
+  </footer>
+
+<script src="8th.js"></script>
+</body>
+</html>
